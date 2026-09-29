@@ -63,3 +63,5 @@ curl -i -X POST "$URL/ask" \
 
 - `screenshots/dashboard.png` — trang Render hiển thị service `day12-agent` ở trạng thái **Live**, URL public và commit `fbc1bbb`.
 - `screenshots/health.png` — kết quả gọi `https://day12-agent-c12l.onrender.com/health`.
+- `screenshots/log.png` — logs triển khai thành công trên Render qua Deploy Hook (commit `4149750`) và các request `/health`, `/ready` trả về `200 OK`.
+
