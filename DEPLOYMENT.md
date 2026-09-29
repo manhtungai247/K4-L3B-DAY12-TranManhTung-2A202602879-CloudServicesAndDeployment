@@ -51,9 +51,11 @@ curl -i -X POST "$URL/ask" \
 - Key Value `day12-redis` ở trạng thái **Available**; chế độ persistence là **Off** trên gói Free.
 - Web service `day12-agent` ở trạng thái **Live**; deploy thành công trong `34.9s`.
 - Log Render xác nhận ứng dụng khởi động hoàn tất trên `0.0.0.0:10000`; các health probe nội bộ gọi `/health` nhận `200 OK`.
-- `pytest tests/test_cp5.py::TestDeploymentDoc -v`: `4 passed`.
-- `pytest tests/test_cp5.py -v`: `5 passed, 3 failed, 5 skipped`; ba lỗi endpoint không tới ứng dụng vì môi trường này không phân giải được DNS (`getaddrinfo failed`). `curl.exe` cũng bị Windows chặn ở bước kiểm tra thu hồi chứng chỉ (`CRYPT_E_REVOCATION_OFFLINE`), và trình duyệt báo timeout. Các lỗi này chưa xác định được HTTP status của `/health`, `/ready` hay `/ask` từ client bên ngoài; log Render chỉ xác nhận health probe nội bộ `/health` trả `200`.
-- Chạy lại ba lệnh HTTP trong PowerShell trên mạng của bạn để xác minh `/health` `200`, `/ready` `200` và `/ask` không key `401`. Không tắt kiểm tra TLS để vượt qua lỗi mạng.
+- `GET /health`: `200 OK`, body có `status: ok`.
+- `GET /ready`: `200 OK`, body `{"status":"ready","redis":true}`.
+- `POST /ask` không có API key: kiểm tra CP5 pass, trả `401` như yêu cầu.
+- `pytest tests/test_cp5.py -v`: `9 passed, 4 skipped` trong `43.99s`. Các test bị skip là phần LOCAL_FALLBACK; test `/ask` có key hợp lệ cũng pass.
+- Một lệnh `curl.exe` thủ công trả `422` do PowerShell gửi JSON sai cú pháp; đây không phải lỗi của ứng dụng và không ảnh hưởng kết quả pytest.
 
 ## Ảnh Chụp Màn Hình
 
