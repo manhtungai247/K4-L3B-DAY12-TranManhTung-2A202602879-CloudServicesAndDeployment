@@ -54,12 +54,12 @@ curl -i -X POST "$URL/ask" \
 - `GET /health`: `200 OK`, body có `status: ok`.
 - `GET /ready`: `200 OK`, body `{"status":"ready","redis":true}`.
 - `POST /ask` không có API key: kiểm tra CP5 pass, trả `401` như yêu cầu.
-- `pytest tests/test_cp5.py -v`: `9 passed, 4 skipped` trong `43.99s`. Các test bị skip là phần LOCAL_FALLBACK; test `/ask` có key hợp lệ cũng pass.
+- `pytest tests/test_cp5.py -v`: lần chạy gần nhất có `9 passed, 4 skipped`. Các test bị skip là phần LOCAL_FALLBACK; test `/ask` có key hợp lệ cũng pass.
 - Một lệnh `curl.exe` thủ công trả `422` do PowerShell gửi JSON sai cú pháp; đây không phải lỗi của ứng dụng và không ảnh hưởng kết quả pytest.
 
 ## Ảnh Chụp Màn Hình
 
-Lưu ảnh vào thư mục `screenshots/`:
+Ảnh minh chứng được lưu trong thư mục `screenshots/`:
 
-- `screenshots/dashboard.png` — trang Render thể hiện service/deploy ở trạng thái Live.
+- `screenshots/dashboard.png` — trang Render hiển thị service `day12-agent` ở trạng thái **Live**, URL public và commit `fbc1bbb`.
 - `screenshots/health.png` — kết quả gọi `https://day12-agent-c12l.onrender.com/health`.

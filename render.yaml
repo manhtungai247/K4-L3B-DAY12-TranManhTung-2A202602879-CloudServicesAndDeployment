@@ -10,6 +10,7 @@ services:
     dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /health
+    autoDeployTrigger: "off"
     envVars:
       - key: AGENT_API_KEY
         sync: false
